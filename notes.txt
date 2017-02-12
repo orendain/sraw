@@ -1,0 +1,56 @@
+Stack:
+  - ReactiveStreams: Akka-Streams
+  - HTTP Client: Akka-HTTP, fallback is Dispatch
+  - JSON marshalling: Akka-HTTP
+
+
+
+
+API:
+
+In: List of values
+  For subreddits: [funny, pics, programming, etc.]
+    or just one: [funny]
+
+    will "return" entire subreddit model
+
+  For subreddit settings: [funny, pics, programming, etc.]
+    or just one: [funny]
+
+    will "return" entire subreddit model -> setting
+
+
+  Both will hold (flatmap'd) and return values
+
+
+
+To auth:
+  (check JRAW for basics)
+  //
+
+To operate on a stream:
+  1) Get all values as is typical
+  2) Create a function, pass it to/as a flow
+  3) Create a function, pass it to/as the sink (preferred)
+
+From http://doc.akka.io/docs/akka-stream-and-http-experimental/1.0-M4/AkkaStreamAndHTTPScala.pdf
+Page 68:
+  Requests are handled by calling one of the IncomingConnection.handleWithX methods with a handler, which can either be
+• a Flow[HttpRequest, HttpResponse] for handleWith ,
+• a function HttpRequest => HttpResponse for handleWithSyncHandler,
+• or a function HttpRequest => Future[HttpResponse] for handleWithAsyncHandler
+
+
+For POST actions:
+  1) Source can be a list of "Actions"
+      No "flow" unless user-created
+      Sink can empty (default is return as map), or can be passed in/replaced by a user-function
+  2) Easy method can also be to either:
+      A) Feed action(s) to a sink
+      B) Call the easy myAction.run() - which basically does option (A)
+
+
+
+
+
+  For user settings: []

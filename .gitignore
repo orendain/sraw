@@ -1,0 +1,17 @@
+# SBT
+logs
+project/project
+target
+tmp
+dist
+.cache
+
+RUNNING_PID
+bin
+docs
+lib
+
+
+# IntelliJ IDEA
+/.idea
+*.iml

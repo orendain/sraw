@@ -1,0 +1,27 @@
+README
+
+SRAW, or Scala Reddit API Wrapper, is a library that can be used with, and is written in, idiomatic Scala to access Reddit's API.
+
+Features
+Different levels of APIs -- use an easier high-level API and/or a more open low-level API
+Built against Scala 2.10 and 2.11
+Leverages Akka Streams (Reactive Streams) and HTTP under the hood.
+
+
+Usage
+------
+
+Add the SRAW dependency to your project.
+
+
+
+
+
+Benefits to end-users (Subreddit moderators, users and other non-developers)
+------
+
+One hurdle end-users tend to have to get over (and sometimes decide isn't worth the trouble and drop) is running or managing software.  Rather than requiring users to download a compiler or interpreter and
+
+[Example Project] is an example using SRAW which generates a single JAR that a developer can send an end-user.  It can be configured via arguments or a config file, without the need for an end-user to shuffle with the source or a recompile process.
+
+Because many people may already have the Java runtime on their machines, there's oftentimes...

@@ -1,0 +1,122 @@
+access_token:
+grant_type: authorization
+code: CODE
+redirect_url=URI
+
+grant_type=refresh
+refresh_token=TOKEN
+
+grant_type=password
+username=""
+password=""
+
+
+GrantType
+  Password = username/pass
+  TokenRefresh = refreshToken
+  Authorization = code/redirectURL
+  ClientCredentials = (nothing)
+  https://oauth.reddit.com/grants/installed_client = deviceID
+
+
+Input Case Classes -> EncodedURL
+  A. CC -> Json -> EncodedURL()
+  B. CC(Map[String,String]) -> EncodedURL()
+
+Option A is the cleanest, although it does require an extra step in converting to JSON.
+
+
+After AccessToken(), returns TokenResponse
+  TokenResponse.refreshToken: TokenRefresh (grantType) (or None/NoGrantType)
+
+Auth Token is stored:
+  A. Connection (too restrictive, connection = one per API client)
+  B. Credentials (doesnt make sense, creds = one per API client and merged into Connection)
+  C. Other
+    UserAccess/RedditUser(AccessTokenType) (AccessTokenType stores expiration, and can generate RefreshToken)
+      Ex: AccountAPI.me -> AccountAPI.me(userAccess)(implicit connection)
+      Ex: SubredditAPI.submit(newSubmission)(userAccess)(implicit connection)
+    UserAccess.refreshToke: TokenRefresh/None/CannotRefresh
+    UserAccess.isExpired
+    UserAccess.expirationTime
+    UserAccess.expiresIn
+    UserAccess.scopes: Seq[Scope]
+
+    To refresh:
+      AuthenticationAPI.refreshToken(TokenRefresh)(UserAccess):  TokenResponse:AccessToken/Error
+      AuthenticationAPI.refreshToken(UserAccess)
+      AuthenticationAPI.refreshAccess(UserAccess): UserAccess/Error
+        Should probably return a Try[RedditObject]: (Success(UserAccess) / Failure(ErrorJSON))
+        Same with all user APIs:
+          Ex: Subreddit.submit(mySubmission)(edgarAccess): Success(Listing)/Failure(ErrorJSON)
+
+      // No  - UserAccess should be a model, not an API
+      UserAccess.refreshToken(): boolean
+      UserAccess.refreshToken(): new UserAccess
+
+    Initial Connection (based on above):
+      AuthenticationAPI.authorize(scopes: Seq[], permanent=false)(impl connection) - Return the URL to send user to?
+        (https://github.com/reddit/reddit/wiki/OAuth2#authorization)
+          If so, would return URL String, no failure
+      AuthenticationAPI.authorizeCompact() - friendlier to small screens.  Or a boolean param for authorize()
+
+
+
+
+response:
+"access_token": Your access token,
+"token_type": "bearer",
+"expires_in": Unix Epoch Seconds,
+"scope": A scope string,
+"refresh_token": Your refresh token
+
+"access_token": Your access token,
+"token_type": "bearer",
+"expires_in": Unix Epoch Seconds,
+"scope": A scope string,
+
+"state"
+
+Assuming OptionA,Ex.4: CredentialTypes
+  ScriptCreds: clientID, clientSecret, (redirectURL? -- should work only for devs)
+  WebApp: cID, cSecret, redirectURL (yes, part of creds -- goes with CID)
+  UserlessCreds: cID, cS
+  --
+  InstalledApp: CID, redirectURL
+  UserlessInstalledApp: cID, UUID
+
+Can this be replaced with: -- YES!
+  ScriptCreds(cID, cS, redirect)
+  WebAppCreds(CiD, cS, redirect)
+  InstalledAppCreds(CiD, redirect, UUID=randomNumber) ??
+
+While it *sort of* makes sense for connections to reauth using diff. types of credentials (script -> webapp), its complicated and unnecessary.  Do not allow reauthenticating
+
+
+
+Option A:
+Credentials -> Authorize based on creds
+  Ex: Script creds only work on authorizing self
+    But should allow devs to mess up on purpose? Or add this safety layer?
+    Sets precedence for future open/restricted argument.  Overall, though,
+    should be open - lets devs do w/e they want.
+  Ex2: Connection(userAgent, scriptCreds) -> AuthorizeAPI.authorize()
+    Should error out?  Because scripts cannot redirect (I think)?
+    Or again, let developers use however and let them fail.
+  Ex3: Connection(userAgent, scriptCreds) -> AccessToken() -> returns TokenResponse(accessToken, tokenType, expiration, scope)
+    Looks good so far.
+  Ex4: Connection(userAgent, scriptCreds) -> AccessToken(PasswordGrantType) -> returns TokenResponse()
+    Pros are same credentials can be used for multiple accessToken retrievals.  This means scriptCreds dont/shouldnt need username/pass fields.  This is created as a separate PasswordGrantType.
+      More modular, but less userfriendly?
+    This would allow scriptCreds to attempt to access API calls that will for sure return errors.  But screw it, let the developers fail.
+
+UserAgent:
+  Attaching UserAccess to each request/requestStub is too complex.
+  Maybe:
+    1. Connection.borrow(UserAccess): Unit/Connection
+       Connection.releaseAccess(): Unit
+        But this might encourage keeping many Connection instances, which is bad.
+        This would solve the problem quite nicely, however - albeit at the cost
+        of making Connection not fully immutable.
+        Might as well, can redesign later.
+

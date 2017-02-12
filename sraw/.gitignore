@@ -1,0 +1,12 @@
+/RUNNING_PID
+/bin/
+/docs/
+/lib/
+/logs/
+/project/
+/target/
+
+activator*
+hs_*
+index*
+*.html

@@ -1,0 +1,27 @@
+<classpath>
+  <classpathentry kind="src" path="src/main/scala"/>
+  <classpathentry kind="src" path="src/main/resources"/>
+  <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe.akka/akka-stream-experimental_2.11/jars/akka-stream-experimental_2.11-1.0-RC3.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe/config/bundles/config-1.2.1.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.reactivestreams/reactive-streams/jars/reactive-streams-1.0.0.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe.akka/akka-http-core-experimental_2.11/jars/akka-http-core-experimental_2.11-1.0-RC3.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe.akka/akka-parsing-experimental_2.11/jars/akka-parsing-experimental_2.11-1.0-RC3.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe.akka/akka-http-experimental_2.11/jars/akka-http-experimental_2.11-1.0-RC3.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/local/default/sraw_2.11/0.1/jars/sraw_2.11.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/jars/akka-actor_2.11-2.3.12.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.11/jars/akka-slf4j_2.11-2.3.12.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.1.3.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.1.3.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.7.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.json4s/json4s-native_2.11/jars/json4s-native_2.11-3.2.11.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.json4s/json4s-core_2.11/jars/json4s-core_2.11-3.2.11.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.json4s/json4s-ast_2.11/jars/json4s-ast_2.11-3.2.11.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.6.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.scala-lang/scalap/jars/scalap-2.11.0.jar"/>
+  <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_COMPILER_CONTAINER"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.1.jar"/>
+  <classpathentry kind="lib" path="/home/edgar/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.1.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="output" path="bin"/>
+</classpath>

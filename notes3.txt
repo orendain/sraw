@@ -1,0 +1,15 @@
+Methods to add:
+
+LoggedInUser:
+  delete
+
+Connection:
+  IsLoggedIn (?)
+  HasScope (?)
+  IsOAuthSession (?)
+
+
+
+
+
+Me.getTopPosts().head.getSubreddit.
