@@ -9,11 +9,11 @@ import com.orendain.sraw.test.UnitSpec
 class AccountAPISpec extends UnitSpec with BeforeAndAfter {
 
   val userAgent = UserAgent("desktop", "com.orendain.sraw_test", "v0.1.0", "sraw_bot")
-  val creds = ScriptCredentials("", "", "http://www.orendainx.com")
+  val creds = ScriptCredentials("CredentialsGoHere", "CredentialsGoHere", "http://www.orendainx.com")
   implicit val connection = Connection(userAgent, creds)
 
   before {
-    val accessToken = PasswordAuth("sraw_bot", "").accessToken()
+    val accessToken = PasswordAuth("sraw_bot", "PassGoesHere").accessToken()
     connection.gainAccess(accessToken)
   }
 

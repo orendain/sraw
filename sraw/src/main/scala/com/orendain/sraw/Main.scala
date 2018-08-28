@@ -9,12 +9,12 @@ import com.orendain.sraw.model._
 object Main extends App {
 
 //  val userAgent = UserAgent("desktop", "com.orendain.sraw_test", "v0.1.0", "sraw_bot")
-//  val creds = ScriptCredentials("", "", "http://www.orendainx.com")
+//  val creds = ScriptCredentials("CredentialsGoHere", "CredentialsGoHere", "http://www.orendainx.com")
 
 //  implicit val connection = Connection(userAgent, creds)
 //
-//  val data = PasswordAuth("sraw_bot", "")
-//  val data = PasswordAuth("", "")
+//  val data = PasswordAuth("sraw_bot", "PassGoesHere")
+//  val data = PasswordAuth("UsernameGoesHere", "PassGoesHere")
 
   //val startTime = System.currentTimeMillis()
 //  val result = AuthorizationAPI.accessToken(data).process()
@@ -232,36 +232,36 @@ object Main extends App {
   import scala.collection.mutable.HashMap
   favSpots()
 //  test()
-
+  
   def test() = {
     val userAgent = UserAgent("desktop", "com.orendain.sraw_test", "v0.1.1", "sraw_bot")
-    val creds = ScriptCredentials("", "", "http://www.orendainx.com")
-
-    implicit val connection = Connection(userAgent, creds)
-    val data = PasswordAuth("sraw_bot", "")
+    val creds = ScriptCredentials("CredentialsGoHere", "CredentialsGoHere", "http://www.orendainx.com")
+    
+    implicit val connection = Connection(userAgent, creds)    
+    val data = PasswordAuth("sraw_bot", "PassGoesHere")
     val accessToken = AuthorizationAPI.accessToken(data).process()
-    //val accessToken = PasswordAute.h("sraw_bot", "").accessToken()
-
+    //val accessToken = PasswordAute.h("sraw_bot", "PassGoesHere").accessToken()
+    
     connection.gainAccess(accessToken)
-
+    
     AccountAPI.me().process()
   }
 
   def favSpots() = {
     // Setup
     val userAgent = UserAgent("desktop", "com.orendain.srawexamples.karmacounter", "v1.0.0", "sraw_bot")
-    val creds = ScriptCredentials("", "", "http://www.orendainx.com")
+    val creds = ScriptCredentials("CredentialsGoHere", "CredentialsGoHere", "http://www.orendainx.com")
     implicit val connection = Connection(userAgent, creds)
 
     // Authenticate
-    val accessToken = PasswordAuth("sraw_bot", "").accessToken()
+    val accessToken = PasswordAuth("sraw_bot", "PassGoesHere").accessToken()
     connection.gainAccess(accessToken)
 
     val hashmap = HashMap.empty[String, Int]
     val hashmap2 = HashMap.empty[String, Int]
 
     val username = "GallowBoob"
-
+    
     val lo = ListOptions(showAll = true, limit = 100)
     val subList = UserAPI.submitted(username, lo).process()
 
@@ -285,7 +285,7 @@ object Main extends App {
         case None =>
       }
     }
-
+    
     val comments = UserAPI.comments(username).process()
     countComments(comments)
     def countComments(comList: Listing[Comment]) {
